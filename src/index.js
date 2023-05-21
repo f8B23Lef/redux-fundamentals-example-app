@@ -9,7 +9,7 @@ import './api/server'
 
 import store from './store'
 
-store.dispatch(fetchTodos)
+store.dispatch(fetchTodos())
 
 ReactDOM.render(
   <React.StrictMode>
