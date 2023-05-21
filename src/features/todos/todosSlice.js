@@ -59,6 +59,9 @@ export default function todosReducer(state = initialState, action) {
     case 'todos/completedCleared': {
       return state.filter((todo) => !todo.completed)
     }
+    case 'todos/todosLoaded': {
+      return action.payload
+    }
     default:
       return state
   }
@@ -67,5 +70,12 @@ export default function todosReducer(state = initialState, action) {
 // Thunk function
 export async function fetchTodos(dispatch, getState) {
   const response = await client.get('/fakeApi/todos')
+
+  const stateBefore = getState()
+  console.log('Todos before dispatch: ', stateBefore.todos.length)
+
   dispatch({ type: 'todos/todosLoaded', payload: response.todos })
+
+  const stateAfter = getState()
+  console.log('Todos after dispatch: ', stateAfter.todos.length)
 }
